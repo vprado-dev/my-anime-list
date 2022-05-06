@@ -1,5 +1,5 @@
 {
-  "name": "express-starter",
+  "name": "my-anime-list",
   "version": "0.0.0",
   "main": "index.js",
   "author": "Vinicius Prado <vinicavagna@gmail.com>",
@@ -37,8 +37,10 @@
     "dotenv-safe": "^8.2.0",
     "express": "^4.18.1",
     "joi": "^17.6.0",
+    "knex": "^2.0.0",
     "morgan": "^1.10.0",
     "openapi-comment-parser": "^1.0.0",
+    "pg": "^8.7.3",
     "swagger-ui-express": "^4.3.0"
   },
   "scripts": {
@@ -47,9 +49,16 @@
     "dev": "ts-node-dev --no-notify src/index.ts",
     "prepare": "husky install",
     "docker": "./scripts/docker",
-    "coverage": "jest --coverage && xdg-open ./coverage/lcov-report/index.html &>/dev/null",
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "coverage": "jest --coverage && xdg-open ./coverage/lcov-report/index.html &>/dev/null",
+    "format": "prettier --write 'src/**/*'",
+    "lint": "eslint --max-warnings=0 'src/**/*'",
+    "migrate-down": "knex --knexfile ./database/knexfile.js migrate:down",
+    "migrate-latest": "knex --knexfile ./database/knexfile.js migrate:latest",
+    "migrate-make": "knex --knexfile ./database/knexfile.js migrate:make",
+    "migrate-rollback": "knex --knexfile ./database/knexfile.js migrate:rollback",
+    "migrate-up": "knex --knexfile ./database/knexfile.js migrate:up"
   },
   "lint-staged": {
     "*.{js,ts,json}": [
