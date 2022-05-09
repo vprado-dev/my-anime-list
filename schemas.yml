@@ -87,6 +87,11 @@ components:
         dataLancamento:
           type: date
           example: "2022-05-09"
+      required:
+        - nome
+        - sinopse
+        - dataLancamento
+
     Anime:
       type: object
       properties:
@@ -111,3 +116,32 @@ components:
         updatedAt:
           type: date-time
           example: 2022-05-09T12:50:52.766Z
+
+    AnimeListagem:
+      type: object
+      properties:
+        totalCount:
+          type: number
+          example: 1
+        items:
+          type: array
+          items:
+            type: object
+            allOf:
+              - $ref: "#/components/schemas/Anime"
+
+    AnimePatchBody:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Fullmetal Alchemist: Brotherhood"
+        sinopse:
+          type: string
+          example: "After a horrific alchemy experiment goes wrong in the Elric household, brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life."
+        referenciaExterna:
+          type: string
+          example: "5114"
+        dataLancamento:
+          type: date
+          example: "2022-05-09"
