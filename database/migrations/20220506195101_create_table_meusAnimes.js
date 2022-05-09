@@ -31,6 +31,11 @@ exports.up = async (knex) => {
     for each row
     execute procedure "setUpdatedAt"();
   `);
+
+  // constraint
+  await knex.schema.raw(`
+    alter table "meusAnimes" add constraint "ck_meusAnimes_nota" check (nota>=1 and nota<=10);
+  `);
 };
 
 /**
