@@ -71,3 +71,43 @@ components:
         description:
           type: string
           example: Can summon creatures to fight for him
+
+    AnimePostBody:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Fullmetal Alchemist: Brotherhood"
+        sinopse:
+          type: string
+          example: "After a horrific alchemy experiment goes wrong in the Elric household, brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life."
+        referenciaExterna:
+          type: string
+          example: "5114"
+        dataLancamento:
+          type: date
+          example: "2022-05-09"
+    Anime:
+      type: object
+      properties:
+        animeId:
+          type: number
+          example: 4
+        nome:
+          type: string
+          example: "Fullmetal Alchemist: Brotherhood"
+        sinopse:
+          type: string
+          example: "After a horrific alchemy experiment goes wrong in the Elric household brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation the boys attempted to bring their recently deceased mother back to life."
+        referenciaExterna:
+          type: string
+          format: "3124"
+        dataLancamento:
+          type: date-time
+          example: 2022-05-08T03:00:00.000Z
+        createdAt:
+          type: date-time
+          example: 2022-05-09T12:50:52.766Z
+        updatedAt:
+          type: date-time
+          example: 2022-05-09T12:50:52.766Z
