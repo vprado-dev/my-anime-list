@@ -12,6 +12,8 @@ export const animesPostOneBody = Joi.object()
 export const animesGetManyQuery = Joi.object()
   .keys({
     nome: Joi.string(),
+    $limit: Joi.number().integer().default(10),
+    $offset: Joi.number().integer().default(0),
   })
   .required();
 

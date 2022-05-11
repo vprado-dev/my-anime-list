@@ -3,6 +3,7 @@ import { transaction } from "../functions/transaction";
 import { database } from "../utils/database";
 import { createAnimesBulder } from "../functions/createAnimesBuilder";
 import { HttpError } from "../utils/httpError";
+import { escapeLike } from "../functions/escapeLike";
 
 interface AnimeProps {
   animeId: number;
@@ -32,12 +33,20 @@ export const animesPostOne = endpoint(async (req, res) => {
 });
 
 export const animesGetMany = endpoint(async (req, res) => {
-  const { nome } = req.query as any;
+  const { nome, $limit, $offset } = req.query as any;
 
-  const animes = await createAnimesBulder(database, { nome });
-  const totalCount = await createAnimesBulder(database, { nome })
-    .count("*")
-    .first();
+  console.log({ nome, $limit, $offset });
+
+  const animes = await createAnimesBulder(database).modify((builder) => {
+    if (nome) {
+      builder.andWhereRaw(`lower(nome) like lower(?)`, [
+        "%" + escapeLike(`${nome}`) + "%",
+      ]);
+    }
+    builder.limit($limit);
+    builder.offset($offset);
+  });
+  const totalCount = await createAnimesBulder(database).count("*").first();
 
   res.status(200).json({ totalCount: Number(totalCount.count), items: animes });
 });

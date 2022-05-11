@@ -40,7 +40,7 @@ router.post("/animes", auth, body(animesPostOneBody), animesPostOne);
  * @response default
  * @responseContent {Error} default.application/json
  */
-router.get("/animes", auth, query(animesGetManyQuery), animesGetMany);
+router.get("/animes", query(animesGetManyQuery), animesGetMany);
 
 /**
  * GET /animes/{animeId}
@@ -52,7 +52,7 @@ router.get("/animes", auth, query(animesGetManyQuery), animesGetMany);
  * @response default
  * @responseContent {Error} default.application/json
  */
-router.get("/animes/:animeId", auth, params(animesGetOneParams), animesGetOne);
+router.get("/animes/:animeId", params(animesGetOneParams), animesGetOne);
 
 /**
  * PATCH /animes/{animeId}
