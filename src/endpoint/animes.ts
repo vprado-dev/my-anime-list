@@ -35,8 +35,6 @@ export const animesPostOne = endpoint(async (req, res) => {
 export const animesGetMany = endpoint(async (req, res) => {
   const { nome, $limit, $offset } = req.query as any;
 
-  console.log({ nome, $limit, $offset });
-
   const animes = await createAnimesBulder(database).modify((builder) => {
     if (nome) {
       builder.andWhereRaw(`lower(nome) like lower(?)`, [

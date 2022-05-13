@@ -153,7 +153,7 @@ describe("/players", () => {
       expect(res1.body).toEqual(res2.body);
     });
 
-    test("PATCH /books/:bookId", async () => {
+    test("PATCH /players/:playerId", async () => {
       expect.assertions(6);
 
       const res1 = await request
