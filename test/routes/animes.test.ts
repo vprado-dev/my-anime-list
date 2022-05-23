@@ -1,19 +1,15 @@
-import "../fixture";
-
-import { request as req } from "../request";
+import { request } from "../request";
 
 const AUTHORIZATION_HEADER = {
   authorization: `Bearer ${process.env.API_TOKEN}`,
 };
-
-const request = req();
 
 describe("animes", () => {
   describe("400 - Bad Request", () => {
     test("POST /animes", async () => {
       expect.assertions(1);
 
-      const res = await request
+      const res = await request()
         .post("/animes")
         .set(AUTHORIZATION_HEADER)
         .send({});
@@ -24,7 +20,7 @@ describe("animes", () => {
     test("GET /animes/:animeId", async () => {
       expect.assertions(1);
 
-      const res = await request.get("/animes/invalid");
+      const res = await request().get("/animes/invalid");
 
       expect(res.status).toBe(400);
     });
@@ -32,12 +28,12 @@ describe("animes", () => {
     test("PATCH /animes/:animeId", async () => {
       expect.assertions(2);
 
-      const res1 = await request
+      const res1 = await request()
         .patch("/animes/invalid")
         .set(AUTHORIZATION_HEADER)
         .send({ nome: "wizard" });
 
-      const res2 = await request
+      const res2 = await request()
         .patch("/animes/invalid")
         .set(AUTHORIZATION_HEADER)
         .send({});
@@ -51,7 +47,7 @@ describe("animes", () => {
     test("POST /animes", async () => {
       expect.assertions(1);
 
-      const res = await request.post("/animes").send({
+      const res = await request().post("/animes").send({
         nome: "Fullmetal Alchemist: Brotherhood",
         sinopse:
           "After a horrific alchemy experiment goes wrong in the Elric household, brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life.",
@@ -64,7 +60,7 @@ describe("animes", () => {
     test("PATCH /animes/:animeId", async () => {
       expect.assertions(1);
 
-      const res = await request
+      const res = await request()
         .patch("/animes/1")
         .send({ nome: "Fullmetal Alchemist" });
 
@@ -76,7 +72,7 @@ describe("animes", () => {
     test("GET /animes/:animeId", async () => {
       expect.assertions(1);
 
-      const res = await request.get("/animes/97239");
+      const res = await request().get("/animes/97239");
 
       expect(res.status).toBe(404);
     });
@@ -84,7 +80,7 @@ describe("animes", () => {
     test("PATCH /animes/:animeId", async () => {
       expect.assertions(1);
 
-      const res = await request
+      const res = await request()
         .patch("/animes/97239")
         .set(AUTHORIZATION_HEADER)
         .send({ nome: "Fullmetal Alchemist" });
@@ -97,7 +93,7 @@ describe("animes", () => {
     test("GET /animes", async () => {
       expect.assertions(2);
 
-      const res = await request.get("/animes");
+      const res = await request().get("/animes");
 
       expect(res.status).toBe(200);
       expect(Object.keys(res.body).sort()).toEqual(["items", "totalCount"]);
@@ -106,7 +102,7 @@ describe("animes", () => {
     test("GET /animes/:animeId", async () => {
       expect.assertions(3);
 
-      const res1 = await request
+      const res1 = await request()
         .post("/animes")
         .set(AUTHORIZATION_HEADER)
         .send({
@@ -118,7 +114,7 @@ describe("animes", () => {
 
       expect(res1.status).toBe(201);
 
-      const res2 = await request.get(`/animes/${res1.body.animeId}`);
+      const res2 = await request().get(`/animes/${res1.body.animeId}`);
 
       expect(res2.status).toBe(200);
 
@@ -128,7 +124,7 @@ describe("animes", () => {
     test("PATCH /animes/:animeId", async () => {
       expect.assertions(6);
 
-      const res1 = await request
+      const res1 = await request()
         .post("/animes")
         .set(AUTHORIZATION_HEADER)
         .send({
@@ -140,13 +136,13 @@ describe("animes", () => {
 
       expect(res1.status).toBe(201);
 
-      const res2 = await request.get(`/animes/${res1.body.animeId}`);
+      const res2 = await request().get(`/animes/${res1.body.animeId}`);
 
       expect(res2.status).toBe(200);
 
       expect(res1.body).toEqual(res2.body);
 
-      const res3 = await request
+      const res3 = await request()
         .patch(`/animes/${res1.body.animeId}`)
         .set(AUTHORIZATION_HEADER)
         .send({ nome: "Anime test" });
